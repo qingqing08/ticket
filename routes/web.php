@@ -23,6 +23,8 @@ Route::get('index/advertisement' , 'Api\Index@advertisement_list');
 
 
 /* User---用户 */
+//获取图形验证码
+Route::get('img-code' , 'Api\User@img_code');
 //获取手机验证码
 Route::post('get-code' , 'Api\User@get_code');
 //注册账号
