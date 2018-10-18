@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
 use ValidateCode;
 
 class User extends Controller{
@@ -14,20 +16,17 @@ class User extends Controller{
 
     public function img_code(){
         $code = new ValidateCode();
-        $data = [
-            'img'   =>  $code->doimg(),
-            'code'  =>  $code->getCode(),
-        ];
+        $code->doimg();
 
-        dd($data);
-
+        Redis::set('img_code' , $code->getCode());
     }
 
     public function get_code(){
-        $phone = Input::post('phone');
-        $code = rand(1000 , 9999);
-        $callback = Input::post('callback');
+//        $phone = Input::post('phone');
+//        $code = rand(1000 , 9999);
+//        $callback = Input::post('callback');
 
+        echo Redis::get('img_code');die;
         if (empty($phone)){
             return Commen::Ajax_return($callback , '100003' , '参数错误' , '');
         }
