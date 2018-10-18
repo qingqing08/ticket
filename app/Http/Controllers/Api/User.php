@@ -7,9 +7,16 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use ValidateCode;
 
 class User extends Controller{
     //
+
+    public function img_code(){
+        $code = new ValidateCode();
+        $code->doimg();
+
+    }
 
     public function get_code(){
         $phone = Input::post('phone');
@@ -27,7 +34,12 @@ class User extends Controller{
         if (empty($info)){
             $result = DB::table('code')->insert($data);
         } else {
-            $result = DB::table('code')->where('c_type' , $phone)->update($data);
+            if ($info->c_ctime - time() > 300){
+                $result = DB::table('code')->where('c_type' , $phone)->update($data);
+            } else {
+                $result = true;
+                $code = $info->c_code;
+            }
         }
 
         if ($result){
@@ -36,6 +48,8 @@ class User extends Controller{
             return Commen::Ajax_return('100001' , 'Error' , '');
         }
     }
+
+
     public function register(){
         $phone = Input::post('phone');
         $email = Input::post('email');
