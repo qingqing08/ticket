@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 class Commen extends Controller{
     //
-    public static function Ajax_return($status , $message , $data){
-        return ['status' => $status , 'message' => $message , 'data' => $data];
+    public static function Ajax_return($callback , $status , $message , $data){
+        return $callback . "(".['status' => $status , 'message' => $message , 'data' => $data].")";
     }
 }

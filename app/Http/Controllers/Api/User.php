@@ -14,16 +14,22 @@ class User extends Controller{
 
     public function img_code(){
         $code = new ValidateCode();
-        $code->doimg();
+        $data = [
+            'img'   =>  $code->doimg(),
+            'code'  =>  $code->getCode(),
+        ];
+
+        dd($data);
 
     }
 
     public function get_code(){
         $phone = Input::post('phone');
         $code = rand(1000 , 9999);
+        $callback = Input::post('callback');
 
         if (empty($phone)){
-            return Commen::Ajax_return('100003' , '参数错误' , '');
+            return Commen::Ajax_return($callback , '100003' , '参数错误' , '');
         }
         $data = [
             'c_type'    =>  $phone,
@@ -43,9 +49,9 @@ class User extends Controller{
         }
 
         if ($result){
-            return Commen::Ajax_return('100000' , 'Success' , ['code'=>$code]);
+            return Commen::Ajax_return($callback , '100000' , 'Success' , ['code'=>$code]);
         } else {
-            return Commen::Ajax_return('100001' , 'Error' , '');
+            return Commen::Ajax_return($callback , '100001' , 'Error' , '');
         }
     }
 
@@ -57,10 +63,11 @@ class User extends Controller{
         $confirm_password = Input::post('confirm_password');
         $img_code = Input::post('img_code');
         $code = Input::post('code');
+        $callback = Input::post('callback');
 
         $codeinfo = DB::table('code')->where('c_code' , $code)->first();
         if ($codeinfo->c_type != $phone){
-            return Commen::Ajax_return('100004' ,'短信验证码输入有误' , '');
+            return Commen::Ajax_return($callback , '100004' ,'短信验证码输入有误' , '');
         }
 //        echo $code;die;
         $data = [
@@ -77,10 +84,11 @@ class User extends Controller{
     public function login(){
         $phone = Input::post('phone');
         $code = Input::post('code');
+        $callback = Input::post('callback');
 
         $codeinfo = DB::table('code')->where('c_code' , $code)->first();
         if ($codeinfo->c_type != $phone){
-            return Commen::Ajax_return('100004' ,'短信验证码输入有误' , '');
+            return Commen::Ajax_return($callback , '100004' ,'短信验证码输入有误' , '');
         }
 
         $data = [
@@ -90,9 +98,9 @@ class User extends Controller{
         $result = DB::table('user')->where('u_phone' , $phone)->update($data);
         if ($result){
             $userinfo = DB::table('user')->where('u_phone' , $phone);
-            return Commen::Ajax_return('100000' , '登录成功' , $userinfo);
+            return Commen::Ajax_return($callback , '100000' , '登录成功' , $userinfo);
         } else {
-            return Commen::Ajax_return('' , '登录失败' , '');
+            return Commen::Ajax_return($callback , '' , '登录失败' , '');
         }
     }
 }
