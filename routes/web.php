@@ -28,6 +28,6 @@ Route::get('img-code' , 'Api\User@img_code');
 //获取手机验证码
 Route::get('get-code' , 'Api\User@get_code');
 //注册账号
-Route::post('register' , 'Api\User@register');
+Route::get('register' , 'Api\User@register');
 //登录
-Route::post('login' , 'Api\User@login');
+Route::get('login' , 'Api\User@login');

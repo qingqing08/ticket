@@ -15,20 +15,30 @@ class User extends Controller{
     //
 
     public function img_code(){
+        $phone = Input::get('phone');
+
+
         $code = new ValidateCode();
         $code->doimg();
 
-        Redis::set('img_code' , $code->getCode());
+        Redis::set($phone , $code->getCode());
     }
 
     public function get_code(){
-//        $phone = Input::post('phone');
-//        $code = rand(1000 , 9999);
-//        $callback = Input::post('callback');
+        $phone = Input::get('phone');
+        $code = rand(1000 , 9999);
+        $callback = Input::get('callback');
+        $img_code = Input::get('img_code');
 
-        echo Redis::get('img_code');die;
+        $redis_code = Redis::get($phone);
+
         if (empty($phone)){
-            return Commen::Ajax_return($callback , '100003' , '参数错误' , '');
+            return $callback ."(". Commen::Ajax_return('100003' , '参数错误' , '') .")";
+        }
+
+        if ($redis_code != $img_code){
+//            return $callback . "(" . json_encode([''])
+            return $callback ."(". Commen::Ajax_return('100004' , '验证码输入有误' , '') .")";
         }
         $data = [
             'c_type'    =>  $phone,
@@ -48,25 +58,24 @@ class User extends Controller{
         }
 
         if ($result){
-            return Commen::Ajax_return($callback , '100000' , 'Success' , ['code'=>$code]);
+            return $callback ."(". Commen::Ajax_return('100000' , 'Success' , ['code'=>$code]) .")";
         } else {
-            return Commen::Ajax_return($callback , '100001' , 'Error' , '');
+            return $callback ."(". Commen::Ajax_return('100001' , 'Error' , '') .")";
         }
     }
 
 
     public function register(){
-        $phone = Input::post('phone');
-        $email = Input::post('email');
-        $password = Input::post('password');
-        $confirm_password = Input::post('confirm_password');
-        $img_code = Input::post('img_code');
-        $code = Input::post('code');
-        $callback = Input::post('callback');
+        $phone = Input::get('phone');
+        $email = Input::get('email');
+        $password = Input::get('password');
+        $confirm_password = Input::get('confirm_password');
+        $code = Input::get('sms_code');
+        $callback = Input::get('callback');
 
         $codeinfo = DB::table('code')->where('c_code' , $code)->first();
         if ($codeinfo->c_type != $phone){
-            return Commen::Ajax_return($callback , '100004' ,'短信验证码输入有误' , '');
+            return $callback . "(" . Commen::Ajax_return('100004' ,'短信验证码输入有误' , '') . ")";
         }
 //        echo $code;die;
         $data = [
@@ -77,13 +86,15 @@ class User extends Controller{
             'u_ctime'   =>  time(),
         ];
 
+        $result = DB::table('user')->insert($data);
+
 
     }
 
     public function login(){
-        $phone = Input::post('phone');
-        $code = Input::post('code');
-        $callback = Input::post('callback');
+        $phone = Input::get('phone');
+        $code = Input::get('code');
+        $callback = Input::get('callback');
 
         $codeinfo = DB::table('code')->where('c_code' , $code)->first();
         if ($codeinfo->c_type != $phone){
