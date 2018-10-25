@@ -31,3 +31,28 @@ Route::get('get-code' , 'Api\User@get_code');
 Route::get('register' , 'Api\User@register');
 //登录
 Route::get('login' , 'Api\User@login');
+//获取用户基本信息
+Route::get('get-userinfo' , 'Api\User@get_userinfo');
+//修改密码
+Route::get('update-password' , 'Api\User@update_password');
+//修改头像
+Route::get('upload-img' , 'Api\User@upload_img');
+
+/* Contacts---常用联系人 */
+//常用联系人列表
+Route::get('contacts-list' , 'Api\Contacts@contacts_list');
+//添加常用联系人
+Route::get('contacts-add' , 'Api\Contacts@contacts_add');
+//删除常用联系人
+Route::get('contacts-del' , 'Api\Contacts@contacts_del');
+
+/* Visit --- 影厅 */
+//展厅列表
+Route::get('visit-list' , 'Api\Visit@visit_list');
+
+//
+Route::get('create-order' , 'Api\Order@create_order');
+
+Route::get('alipay/go-pay' , 'Api\Order@go_pay');
+Route::get('alipay/notify_url' , 'Api\Order@notify_url');
+Route::get('alipay/return_url' , 'Api\Order@return_url');
