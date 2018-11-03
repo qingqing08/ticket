@@ -207,4 +207,36 @@ class User extends Controller{
         }
 
     }
+
+    public function my_order(){
+        $callback = Input::get('callback');
+        $order_type = Input::get('order_type');
+        $user_id = Input::get('user_id');
+        $token = Input::get('token');
+
+//        $user_info = DB::table('user')->where(['u_id'=>$user_id , 'u_token'=>$token])->first();
+//        if (empty($user_info)){
+//            return $callback . "(" . Commen::Ajax_return('100002' , 'Error' , '');
+//        }
+
+        if ($order_type == 'today'){
+            $order_content = DB::table('order_content')->where('u_id' , $user_id)->get();
+            $order_list = [];
+            $i = 0;
+            foreach ($order_content as $content){
+                $order = (array)DB::table('order')->where('o_orderid' , $content->o_orderid)->first();
+//                $order['user_id'] = $content->u_id;
+                $order['o_ctime'] = date('Y-m-d H:i:s' , $order['o_ctime']);
+                $order_list[$i] = $order;
+                $i++;
+            }
+        }
+
+        return $callback . "(" . Commen::Ajax_return('100000' , '获取成功' , $order_list) . ")";
+//        print_r($order_list);die;
+//        if ($order_type == 'end'){
+//
+//        }
+
+    }
 }

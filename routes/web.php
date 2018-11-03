@@ -54,5 +54,18 @@ Route::get('visit-list' , 'Api\Visit@visit_list');
 Route::get('create-order' , 'Api\Order@create_order');
 
 Route::get('alipay/go-pay' , 'Api\Order@go_pay');
-Route::get('alipay/notify_url' , 'Api\Order@notify_url');
-Route::get('alipay/return_url' , 'Api\Order@return_url');
+Route::post('alipay/notify_url' , 'Api\Order@notify_url');
+Route::post('alipay/return_url' , 'Api\Order@return_url');
+
+//订单
+Route::get('my-order' , 'Api\User@my_order');
+
+//音频列表
+Route::get('audio-list' , 'Api\Audio@audio_list');
+
+//统一下单
+Route::get('wxpay/go-pay' , 'Api\Order@order');
+Route::post('wxpay/notify-url' , 'Api\Order@wx_notify');
+
+//刷卡支付
+Route::get('qrcodepay' , 'Api\Qrpay@pay');

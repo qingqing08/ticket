@@ -327,6 +327,7 @@ class ComposerStaticInit4d30a73bfb74215cf295f54ec1bc08d9
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Api\\Audio' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/Audio.php',
         'App\\Http\\Controllers\\Api\\Commen' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/Commen.php',
         'App\\Http\\Controllers\\Api\\Contacts' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/Contacts.php',
         'App\\Http\\Controllers\\Api\\Index' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/Index.php',
@@ -351,6 +352,7 @@ class ComposerStaticInit4d30a73bfb74215cf295f54ec1bc08d9
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
+        'Base' => __DIR__ . '/../..' . '/app/extend/Base.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',

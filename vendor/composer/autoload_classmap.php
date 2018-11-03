@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Http\\Controllers\\Api\\Audio' => $baseDir . '/app/Http/Controllers/Api/Audio.php',
     'App\\Http\\Controllers\\Api\\Commen' => $baseDir . '/app/Http/Controllers/Api/Commen.php',
     'App\\Http\\Controllers\\Api\\Contacts' => $baseDir . '/app/Http/Controllers/Api/Contacts.php',
     'App\\Http\\Controllers\\Api\\Index' => $baseDir . '/app/Http/Controllers/Api/Index.php',
@@ -32,6 +33,7 @@ return array(
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\User' => $baseDir . '/app/User.php',
+    'Base' => $baseDir . '/app/extend/Base.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'Carbon\\CarbonInterval' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
     'Carbon\\Exceptions\\InvalidDateException' => $vendorDir . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
